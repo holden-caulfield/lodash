@@ -5913,6 +5913,16 @@
       var deepDefaults = _.partialRight(_.merge, _.defaults);
       deepEqual(deepDefaults(object, source), expected);
     });
+    test('should work when invoked with an extra argument', 1, function() {
+      function add_fun(a, b) { return a + b };
+      var add_5_fun = _.partialRight(add_fun, 5);
+      equal(add_5_fun(1,2), 6); //should ignore the '2'
+    });
+    test('should work when invoked within map', 1, function() {
+      function add_fun(a, b) { return a + b };
+      var add_5_fun = _.partialRight(add_fun, 5);
+      equal(_.map([0,1,2], add_5_fun), [5,6,7]); //should ignore the "index" parameter
+    });
   }());
 
   /*--------------------------------------------------------------------------*/
